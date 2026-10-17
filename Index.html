@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timothy Oluwaleke — AI Automation Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f5f7; --surface:#ffffff; --ink:#14202b; --muted:#53626f; --line:#c9d3db;
+  --accent:#2348d6; --accent-ink:#ffffff; --tint:#dfe8fb; --ok:#1d7a4f;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10171e; --surface:#18222c; --ink:#e8eef3; --muted:#9aa9b6; --line:#2c3a47;
+  --accent:#7d9cff; --accent-ink:#10171e; --tint:#1c2a4a; --ok:#6fd1a0; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#10171e; --surface:#18222c; --ink:#e8eef3; --muted:#9aa9b6; --line:#2c3a47;
+  --accent:#7d9cff; --accent-ink:#10171e; --tint:#1c2a4a; --ok:#6fd1a0; color-scheme:dark;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Instrument Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Instrument Sans",sans-serif;line-height:1.1;margin:0;letter-spacing:-.02em}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:19px;text-decoration:none}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:15px}
+nav a:hover{color:var(--ink)}
+.hero{padding:72px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,6vw,68px);font-weight:700}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:52ch;margin:22px 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+/* hero moment: a lead arrives, the system replies */
+.chat{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.chat small{color:var(--muted);font-size:13px}
+.msg{max-width:88%;padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.45}
+.msg.in{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.out{background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px;align-self:flex-end}
+.msg.out.late{animation:pop .5s ease 1.4s both}
+.note{align-self:center;font-size:13px;color:var(--ok);font-weight:600}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+section{padding:64px 0;border-top:1px solid var(--line)}
+section>.wrap>h2{font-size:clamp(28px,4vw,42px);max-width:22ch}
+section>.wrap>p.sub{color:var(--muted);max-width:60ch;margin:14px 0 36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.proj h3{font-size:22px}
+.proj dl{margin:0;display:grid;gap:10px}
+.proj dt{font-weight:600;font-size:14px;color:var(--accent)}
+.proj dd{margin:2px 0 0;font-size:15.5px}
+.tools{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;color:var(--muted)}
+.links{display:flex;gap:16px;font-size:14px;font-weight:600}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.step{padding:24px;border-right:1px solid var(--line)}
+.step:last-child{border-right:0}
+.step h3{font-size:20px;margin-bottom:8px}
+.step p{margin:0;color:var(--muted);font-size:15.5px}
+.svc{display:grid;gap:14px}
+.svc div{display:grid;grid-template-columns:minmax(180px,.4fr) 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.svc h3{font-size:20px}
+.svc p{margin:0;color:var(--muted)}
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:48px}
+.about p{margin:0 0 16px}
+.facts{background:var(--tint);border-radius:14px;padding:22px;font-size:15.5px}
+.facts b{display:block;font-size:13.5px;color:var(--muted);margin-top:12px;font-weight:600}
+.facts b:first-child{margin-top:0}
+.contact{background:var(--tint)}
+.contact .btn{margin-top:20px}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+@media (max-width:760px){
+  .hero{padding-top:44px}
+  .hero .wrap,.about{grid-template-columns:1fr;gap:32px}
+  .svc div{grid-template-columns:1fr;gap:4px}
+  .step{border-right:0;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){.msg.out.late{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">Timothy Oluwaleke</a>
+    <nav aria-label="Main">
+      <a href="#work">Projects</a><a href="#how">How I work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>I build automations that answer your customers while you work.</h1>
+      <p class="lead">I set up chatbots, lead-sorting systems and record-keeping workflows for small businesses, schools and teams in Nigeria and beyond. You describe the problem in plain words. I build the system and show you how it runs.</p>
+      <div class="btns">
+        <a class="btn" href="#contact">Discuss a project</a>
+        <a class="btn ghost" href="#work">See what I've built</a>
+      </div>
+    </div>
+    <div class="chat" aria-label="Example of an automated reply">
+      <small>New enquiry · 11:42 pm</small>
+      <div class="msg in">Hi, is the 3-bedroom still available? What's the price?</div>
+      <div class="msg out late">Yes, it's available. I've sent the price and viewing times. Would Saturday suit you?</div>
+      <div class="note">Lead saved and owner notified</div>
+    </div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Projects I have built</h2>
+    <p class="sub">Each one starts from a problem a normal business has. Add your demo video and repository links under each card.</p>
+    <div class="grid">
+      <article class="proj">
+        <h3>Real estate lead qualification</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Enquiries come in at all hours and agents waste time on people who are not serious.</dd></div>
+          <div><dt>What it does</dt><dd>Asks each enquirer a few questions, sorts serious buyers from casual ones, and passes the good leads on.</dd></div>
+        </dl>
+        <div class="tools">Built with Zapier and AI</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+      <article class="proj">
+        <h3>Customer-experience Telegram bot</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Customers ask the same questions again and again, and staff answer each one by hand.</dd></div>
+          <div><dt>What it does</dt><dd>Answers questions from a knowledge base the business controls, so replies stay consistent.</dd></div>
+        </dl>
+        <div class="tools">Built with Telegram, Airtable and AI</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+      <article class="proj">
+        <h3>AI agent with a live knowledge base</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Business information lives in documents nobody has time to search.</dd></div>
+          <div><dt>What it does</dt><dd>Lets people ask questions in plain language and get answers drawn from the business's own material.</dd></div>
+        </dl>
+        <div class="tools">Built with Pinecone (RAG) and AI</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+      <article class="proj">
+        <h3>Attendance tracking and management</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Paper registers are slow to fill, easy to lose and hard to summarise.</dd></div>
+          <div><dt>What it does</dt><dd>Records attendance digitally and keeps a running record the person in charge can check.</dd></div>
+        </dl>
+        <div class="tools">Built as an automated workflow</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+      <article class="proj">
+        <h3>Customer feedback system</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Feedback arrives in scattered messages and nobody sees the pattern.</dd></div>
+          <div><dt>What it does</dt><dd>Collects feedback in one place and uses AI to make it easy to read and act on.</dd></div>
+        </dl>
+        <div class="tools">Built as an AI-powered workflow</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+      <article class="proj">
+        <h3>Tech news Telegram bot</h3>
+        <dl>
+          <div><dt>Problem</dt><dd>Following several news sources by hand takes time every day.</dd></div>
+          <div><dt>What it does</dt><dd>Reads Tech Cabal's feed and delivers new stories straight to Telegram.</dd></div>
+        </dl>
+        <div class="tools">Built with RSS and Telegram</div>
+        <div class="links"><a href="#">Watch demo</a><a href="#">Repository</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How a project goes</h2>
+    <p class="sub">Three steps, explained in plain language at every stage.</p>
+    <div class="steps">
+      <div class="step"><h3>Problem</h3><p>You tell me what is slowing the business down. I ask until I understand where time or customers are being lost.</p></div>
+      <div class="step"><h3>Plan</h3><p>I show you the simple version of what I will build, what it connects to, and what happens when something goes wrong.</p></div>
+      <div class="step"><h3>Solution</h3><p>I build it, test it with real examples, and hand it over with a recorded walkthrough so you can run it yourself.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <h2>What I can set up for you</h2>
+    <p class="sub">Rename or remove any of these to match what you want to sell.</p>
+    <div class="svc">
+      <div><h3>Customer chatbots</h3><p>A bot on Telegram or your website that answers common questions from information you approve.</p></div>
+      <div><h3>Lead response and sorting</h3><p>Every enquiry is saved, sorted by how serious it is, answered quickly, and flagged to you when it is worth a call.</p></div>
+      <div><h3>Knowledge assistants</h3><p>Ask questions of your documents and get answers in plain language.</p></div>
+      <div><h3>Record-keeping workflows</h3><p>Attendance, feedback and orders captured automatically instead of typed in by hand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About me</h2>
+    <p class="sub"></p>
+    <div class="about">
+      <div>
+        <p>I'm Timothy, a mechanical engineer based in Abuja. My engineering training taught me to look for what fails first, so I test every system against the bad day: wrong input, a service that is down, a form sent twice.</p>
+        <p>I teach mathematics at a government secondary school, which is where I learned to explain technical things in simple words. I also lead marketing at QRing Technologies, so I see automation from the side of the person who needs the result, not only the person building it.</p>
+        <p>I trained in AI automation with Cybervast and now build and publish working projects, one at a time.</p>
+      </div>
+      <aside class="facts">
+        <b>Based in</b>Abuja, Nigeria
+        <b>Background</b>Mechanical engineering, industrial maintenance
+        <b>Currently</b>Mathematics teacher, Head of Marketing at QRing Technologies
+        <b>Builds with</b>n8n, Zapier, Airtable, Pinecone, Telegram
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Have a slow, repeated task in your business?</h2>
+    <p class="sub">Tell me what it is. I will tell you whether it can be automated and what it would take.</p>
+    <a class="btn" href="mailto:your-email@example.com">your-email@example.com</a>
+    <p style="margin-top:20px;font-size:15px"><a href="#">LinkedIn</a> · <a href="#">X</a> · <a href="#">Instagram</a> · <a href="#">Upwork</a></p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Timothy Oluwaleke · Abuja, Nigeria</div></footer>
+</body>
+</html>
